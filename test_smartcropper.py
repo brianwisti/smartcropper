@@ -40,5 +40,5 @@ def test_smartcropper_from_text_file_fails():
 def test_smart_crop_to_100x100(image):
     img = SmartCropper(image)
     cropped = img.smart_crop(100, 100)
-    size = [img.rows, img.columns]
+    size = [cropped.height, cropped.width]
     assert size == [100, 100]
