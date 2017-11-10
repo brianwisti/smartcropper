@@ -69,6 +69,10 @@ class SmartCropper:
                 height = bottom - top
         return (left, top, right, bottom)
 
+    def smart_crop_and_scale(self, width, height):
+        squared = self.smart_square()
+        return squared.resize((width, height))
+
     def smart_square(self):
         rows = self.image.height
         columns = self.image.width

@@ -47,3 +47,9 @@ def test_square_without_scaling(image):
     img = SmartCropper(image)
     squared = img.smart_square()
     assert squared.height == squared.width
+
+def test_smart_crop_and_scale(image):
+    img = SmartCropper(image)
+    cropped = img.smart_crop_and_scale(100, 100)
+    size = [cropped.height, cropped.width]
+    assert size == [100,100]
