@@ -17,7 +17,6 @@ class SmartCropper:
 
     def smart_crop(self, width, height):
         sq = self.square(width, height)
-        print(sq)
         return self.image.crop(sq)
 
     def square(self, width, height):
@@ -45,13 +44,10 @@ class SmartCropper:
                     right -= slice_width
 
                 width = right - left
-                print("width: {}".format(width))
 
             # Slice from top and bottom edges until the correct height is reached.
             while height > requested_y:
-                print("height: {}".format(height))
                 slice_height = min((height - step_size), step_size)
-                print("slice height: {}".format(slice_height))
 
                 # Avoid shrinking past requested height
                 if height - slice_height < requested_y:
@@ -87,9 +83,13 @@ class SmartCropper:
         return self.image.crop(squared)
 
     def step_size(self, requested_x, requested_y):
+        # Yes this is too verbose but I needed to understand the steps.
         height_difference = self.image.height - requested_x
         width_difference = self.image.width - requested_y
-        return int((max(height_difference, width_difference) / 2) / self.steps)
+        biggest_difference = max(height_difference, width_difference)
+        average_difference = biggest_difference / 2
+        # NOTE: Ceiling so I can do a 1 pixel crop
+        return math.ceil( average_difference / self.steps)
 
     def entropy_slice(self, image_data, x, y, width, height):
         bottom = y + height

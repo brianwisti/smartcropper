@@ -53,3 +53,16 @@ def test_smart_crop_and_scale(image):
     cropped = img.smart_crop_and_scale(100, 100)
     size = [cropped.height, cropped.width]
     assert size == [100,100]
+
+def test_smart_crop_small_images(twenty_twenty):
+    img = SmartCropper(twenty_twenty)
+    cropped = img.smart_crop(100, 100)
+    expected = [twenty_twenty.height, twenty_twenty.width]
+    actual = [cropped.height, cropped.width]
+    assert expected == actual
+
+def test_smart_crop_one_pixel_slice(twenty_twenty):
+    img = SmartCropper(twenty_twenty)
+    cropped = img.smart_crop(19, 19)
+    size = [cropped.height, cropped.width]
+    assert size == [19, 19]
