@@ -69,6 +69,19 @@ class SmartCropper:
                 height = bottom - top
         return (left, top, right, bottom)
 
+    def smart_square(self):
+        rows = self.image.height
+        columns = self.image.width
+
+        if rows != columns:
+            if rows < columns:
+                crop_height = crop_width = rows
+            else:
+                crop_height = crop_width = columns
+
+        squared = self.square(crop_width, crop_height)
+        return self.image.crop(squared)
+
     def step_size(self, requested_x, requested_y):
         height_difference = self.image.height - requested_x
         width_difference = self.image.width - requested_y
